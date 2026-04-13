@@ -2,34 +2,16 @@ pipeline {
     agent any
 
     stages {
-        stage('Clone') {
+
+        stage('Check Docker') {
             steps {
-                echo 'Cloning done automatically by Jenkins'
+                bat 'docker --version'
             }
         }
 
-        stage('Git Info') {
+        stage('Run Container') {
             steps {
-                bat 'git status'
-                bat 'git log --oneline'
-            }
-        }
-
-        stage('Build') {
-            steps {
-                bat 'echo Building project...'
-            }
-        }
-
-        stage('Test') {
-            steps {
-                bat 'echo Testing project...'
-            }
-        }
-
-        stage('Deploy') {
-            steps {
-                bat 'echo Deploying project...'
+                bat 'docker run hello-world'
             }
         }
     }
