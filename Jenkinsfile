@@ -3,15 +3,21 @@ pipeline {
 
     stages {
 
-        stage('Check Docker') {
+        stage('Clone') {
             steps {
-                bat 'docker --version'
+                echo 'Code pulled from GitHub'
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                bat 'docker build -t my-app .'
             }
         }
 
         stage('Run Container') {
             steps {
-                bat 'docker run hello-world'
+                bat 'docker run -d -p 8081:80 my-app'
             }
         }
     }
